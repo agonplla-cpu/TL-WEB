@@ -612,8 +612,18 @@ void main(){
   dc-=.04*smoothstep(.7,1.,sw2);
   dc+=(hash21(floor(p)+.5)-.5)*.05;
   dc*=1.-.45*step(.994,hash21(floor(p/2.5)+31.));
+  /* coulures séchées et auréoles de calcaire */
+  float drip=smoothstep(.6,.92,vnoise(vec2(p.x*.085,p.y*.0045)+40.))*smoothstep(.2,.7,vnoise(vec2(p.x*.02,p.y*.002)+9.));
+  dc=mix(dc,vec3(.5,.47,.41),drip*.42);
+  vec2 rc=p/170.,ri=floor(rc),rf=fract(rc)-.5;
+  float rr=length(rf-(hash22(ri+2.)-.5)*.5),rad0=.16+.2*hash21(ri+8.);
+  float ring=smoothstep(.02,0.,abs(rr-rad0))*step(.55,hash21(ri+4.));
+  dc+=ring*.07;
+  /* voile de poussière fine */
+  dc=mix(dc,vec3(.72,.7,.66),.18*fbm(p*.011+30.));
   float af=mix(.9,.975,blot);
-  vec3 b1=beads(p,13.,.2+.25*n2),b2=beads(p+71.,46.,.13);
+  af=max(af,drip*.97);
+  vec3 b1=beads(p,13.,.06+.1*n2),b2=beads(p+71.,46.,.06);
   float bm=max(b1.x,b2.x),bh=max(b1.y*b1.x,b2.y*b2.x),bs=max(b1.z*b1.x,b2.z*b2.x);
   af*=1.-.4*bm;
   dc=mix(dc,vec3(.3,.34,.44),bs*.55);
@@ -674,8 +684,22 @@ void main(){
     float film=wet*wet*(.015+.06*vnoise(vec2(p.x*.6,p.y*.035)+3.));
     vec3 mb=beads(p+13.,8.,wet*wet*.28);
     over(vec3(1.),cl*(film+mb.y*mb.x*.45*smoothstep(.05,.3,wet)));
-    over(vec3(.02,.04,.2),cl*edge*.28*step(.5,fract(p.y*.5)));
-    over(vec3(1.),cl*edge*.5);
+    /* mousse laissée par la lame : petites bulles qui éclatent */
+    vec3 fo=beads(p+vec2(31.,7.),6.5,clamp(edge*1.15,0.,.95));
+    vec3 fo2=beads(p+vec2(3.,57.),11.,clamp(edge*.8,0.,.8));
+    float fm=max(fo.x,fo2.x);
+    over(vec3(.93,.97,1.),cl*fm*edge*.85);
+    over(vec3(1.),cl*max(fo.y*fo.x,fo2.y*fo2.x)*edge);
+    over(vec3(.6,.75,1.),cl*edge*.22);
+    /* éclats de propre : petites étoiles qui scintillent juste après le passage */
+    vec2 sg=floor(p/42.),sf=fract(p/42.)-.5;
+    float sh2=hash21(sg+7.);
+    if(sh2>.78){
+      vec2 sd=sf-(hash22(sg+1.)-.5)*.55;
+      float star=exp(-abs(sd.x)*46.)*exp(-abs(sd.y)*8.)+exp(-abs(sd.y)*46.)*exp(-abs(sd.x)*8.)+exp(-dot(sd,sd)*520.);
+      float tw=smoothstep(.12,.4,wet)*smoothstep(.97,.7,wet)*(.6+.4*sin(uTime*9.+sh2*40.));
+      over(vec3(1.),cl*star*tw);
+    }
   }
   over(dc,da);
   /* gouttes qui coulent */
@@ -705,24 +729,40 @@ void main(){
     vec2 n=vec2(uBd.y,-uBd.x);
     vec2 r=p-uB;float v=dot(r,uBd),t=dot(r,n);
     vec2 rs=r-vec2(7.,12.)*k;float vs=dot(rs,uBd),ts=dot(rs,n);
-    float shd=smoothstep(uL+10.,uL-6.,abs(vs))*smoothstep(-16.*k,-2.,ts)*smoothstep(26.*k,8.*k,ts);
-    over(vec3(0.,.01,.08),shd*.38*uBladeA);
-    /* manche */
-    float hw=7.*k;float hm=smoothstep(hw+1.,hw-1.,abs(v))*smoothstep(20.*k,22.*k,t)*smoothstep(118.*k,114.*k,t);
-    vec3 hc=mix(vec3(.49,.78,1.),vec3(.22,.5,.88),smoothstep(-hw,hw,v));hc+=.25*smoothstep(2.5*k,0.,abs(v+2.5*k));
+    float shd=smoothstep(uL+22.,uL-10.,abs(vs))*smoothstep(-22.*k,2.,ts)*smoothstep(40.*k,6.*k,ts);
+    float shh=smoothstep(16.*k,2.*k,abs(vs))*smoothstep(18.*k,30.*k,ts)*smoothstep(132.*k,112.*k,ts);
+    over(vec3(0.,.01,.08),max(shd*.34,shh*.3)*uBladeA);
+    /* manche : cylindre brillant, poignée striée en bout */
+    float hw=7.5*k;float hm=smoothstep(hw+1.,hw-1.,abs(v))*smoothstep(20.*k,22.*k,t)*smoothstep(122.*k,118.*k,t);
+    float hu=clamp(v/hw,-1.,1.),hz=sqrt(1.-hu*hu);
+    vec3 hc=mix(vec3(.14,.36,.8),vec3(.5,.79,1.),hz);
+    hc+=.55*pow(max(0.,1.-abs(hu+.38)*2.2),6.);
+    float grip=smoothstep(70.*k,74.*k,t);
+    vec3 gc=mix(vec3(.03,.05,.16),vec3(.16,.2,.36),hz)*(.75+.25*step(.5,fract(t/(4.5*k))));
+    hc=mix(hc,gc,grip);
     over(hc,hm*uBladeA);
+    /* embout arrondi */
+    float capd=length(vec2(v,t-120.*k));
+    over(mix(vec3(.03,.05,.16),vec3(.2,.25,.42),smoothstep(hw,0.,capd)),smoothstep(hw+.5,hw-1.,capd)*step(120.*k,t)*uBladeA);
     /* tête */
     float cw=19.*k;float cm=smoothstep(cw+1.,cw-1.,abs(v)-max(0.,(12.*k-t))*.55)*smoothstep(8.*k,10.*k,t)*smoothstep(27.*k,25.*k,t);
-    over(mix(vec3(.52,.8,1.),vec3(.26,.54,.9),smoothstep(8.*k,27.*k,t)),cm*uBladeA);
-    /* barrette métal */
+    vec3 cc=mix(vec3(.55,.82,1.),vec3(.2,.46,.86),smoothstep(8.*k,27.*k,t));
+    cc+=.35*smoothstep(3.*k,0.,abs(t-13.*k))*smoothstep(cw,0.,abs(v));
+    over(cc,cm*uBladeA);
+    /* barrette métal : reflet qui glisse avec le mouvement */
     float mm=smoothstep(uL+1.,uL-1.,abs(v))*smoothstep(2.,3.5,t)*smoothstep(11.*k+1.,11.*k-.5,t);
     float mt=(t-3.)/(11.*k-3.);
-    vec3 mc=mix(vec3(.55,.6,.7),vec3(.97,.98,1.),smoothstep(0.,.45,mt)*smoothstep(1.,.5,mt));
-    mc*=.92+.08*sin(v*.9);
+    vec3 mc=mix(vec3(.42,.47,.58),vec3(.96,.98,1.),smoothstep(0.,.45,mt)*smoothstep(1.,.5,mt));
+    mc*=.9+.1*sin(v*.9);
+    mc+=.5*band(v/uL,uMouse.x*.9+.25*sin(uTime*.7),.16)+.25*band(v/uL,-.55+uMouse.y*.4,.07);
     over(mc,mm*uBladeA);
-    /* lame caoutchouc */
+    /* lame caoutchouc + filet d'eau qu'elle pousse */
     float rm=smoothstep(uL+3.,uL+1.,abs(v))*smoothstep(-4.5,-3.,t)*smoothstep(4.,2.5,t);
     over(vec3(.03,.035,.06)+.1*smoothstep(1.5,-1.,abs(t+1.5)),rm*uBladeA);
+    float wl=smoothstep(uL+2.,uL-4.,abs(v))*smoothstep(-9.,-6.,t)*smoothstep(-3.5,-5.,t);
+    float wb=.55+.45*vnoise(vec2(v*.35,uTime*3.));
+    over(vec3(.82,.92,1.),wl*wb*.8*uBladeA);
+    over(vec3(1.),wl*smoothstep(.75,1.,wb)*uBladeA);
   }
   gl_FragColor=acc;
 }`;
@@ -837,7 +877,7 @@ async function boot(){
     const hr=hero.getBoundingClientRect(),sr=slot.getBoundingClientRect();
     mono.position.set(sr.left-hr.left+sr.width/2-w/2,h/2-(sr.top-hr.top+sr.height/2),0);
     mono.scale.setScalar(sr.height*.96);
-    L=Math.max(56,Math.min(112,Math.min(w,h)*.12));
+    L=Math.max(60,Math.min(128,Math.min(w,h)*.135));
     if(sizeChanged){
       const k=Math.min(1,900/Math.max(w,h)),rw=Math.max(64,Math.round(w*k)),rh=Math.max(64,Math.round(h*k));
       rtA&&rtA.dispose();rtB&&rtB.dispose();
