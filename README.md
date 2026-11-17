@@ -19,6 +19,8 @@ mentions légales, confidentialité, `/merci/`, `404.html`, `sitemap.xml`, `robo
 
 N'utiliser que de vraies photos, à leur taille d'origine (photo prise au téléphone, pas une capture d'écran), sans agrandissement par IA.
 
+Les photos de chantiers de l'accueil (`/assets/img/photos/p01` à `p13`) ne sont pas dans ce dépôt : elles ont été extraites sur le serveur depuis l'ancienne page `tlproprete_v5.html` et n'existent que dans `httpdocs`.
+
 ## Modifier le site
 
 1. Modifier les textes dans `generateur/content.py` (ou la mise en page dans `generateur/build.py`).

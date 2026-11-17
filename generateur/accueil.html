@@ -13,7 +13,7 @@
 :root{
   --blue:#092094; --blue-lit:#1b3fe0; --ink:#060b2e; --night:#040828;
   --paper:#f3f5fb; --white:#fff; --line:#d3d9ea; --text:#0b1030; --muted:#454c6b;
-  --accent:#7cc8ff; --on-dark:#e9edff; --on-dark-muted:#b9c2ee;
+  --accent:#62d5fa; --on-dark:#e9edff; --on-dark-muted:#b9c2ee;
   --wrap:1240px; --pad:clamp(20px,4.5vw,56px);
   --font:"Archivo",Helvetica,Arial,sans-serif;
 }
@@ -188,7 +188,7 @@ h2{font-weight:800;font-stretch:118%;font-size:clamp(2rem,3.7vw,3.4rem);line-hei
 .tech-item p{color:var(--on-dark-muted)}
 .qr{position:relative;width:96px;height:96px;background:#fff;padding:7px;overflow:hidden}
 .qr svg{width:82px;height:82px}
-.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);box-shadow:0 0 14px 4px rgba(124,200,255,.75);animation:scan 2.6s cubic-bezier(.5,0,.5,1) infinite alternate}
+.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);box-shadow:0 0 14px 4px rgba(98,213,250,.75);animation:scan 2.6s cubic-bezier(.5,0,.5,1) infinite alternate}
 @keyframes scan{from{transform:translateY(4px)}to{transform:translateY(89px)}}
 @media (max-width:900px){
   .tech-grid{grid-template-columns:1fr}
@@ -307,7 +307,13 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
 .chips li{padding:12px 20px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:19px;font-weight:700;transition:transform .25s,border-color .25s,color .25s}
 .chips li:hover{transform:translateY(-3px);border-color:var(--blue);color:var(--blue)}
 .cta-act .btn-main{animation:pulse 2.6s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(124,200,255,.55)}50%{box-shadow:0 0 0 16px rgba(124,200,255,0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(98,213,250,.55)}50%{box-shadow:0 0 0 16px rgba(98,213,250,0)}}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.shots figure{position:relative;margin:0;border-radius:20px;overflow:hidden;aspect-ratio:3/4;background:var(--line)}
+.shots img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.shots figure:hover img{transform:scale(1.06)}
+.shots figcaption{position:absolute;left:0;right:0;bottom:0;padding:56px 22px 20px;color:#fff;font-size:1.25rem;font-weight:800;font-stretch:112%;line-height:1.2;background:linear-gradient(180deg,rgba(6,11,46,0),rgba(6,11,46,.86))}
+@media (max-width:900px){.shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shots figcaption{font-size:1.05rem;padding:40px 14px 14px}}
 /* apparition au défilement (seulement si le script tourne) */
 .js .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .js .rv.in{opacity:1;transform:none}
@@ -341,6 +347,7 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
       <a href="#prestations">Prestations</a>
+      <a href="#photos">En photos</a>
       <a href="#engagements">Nos engagements</a>
       <a href="#methode">Comment ça se passe</a>
       <a href="#zones">Zones</a>
@@ -396,6 +403,13 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
     <div class="wrap">
       <div class="head rv"><h2>Ce que nous nettoyons</h2><p>Choisissez votre besoin.</p></div>
       <ul class="cards"><li class="rv"><a class="card" href="/nettoyage-copropriete-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 42V8h20v34M30 18h8v24M6 42h36"/><path d="M16 15h3M23 15h3M16 22h3M23 22h3M16 29h3M23 29h3M18 42v-6h6v6"/></svg><h3>Immeubles et copropriétés</h3><p>Halls, escaliers, ascenseurs, local poubelles.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-bureaux-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30h36M10 30v10M38 30v10M16 30V18h16v12"/><path d="M20 12h8v6h-8zM22 24h4"/></svg><h3>Bureaux</h3><p>Avant ou après vos horaires, sans vous déranger.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-commerces-hotels-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20v20h32V20M6 12h36l-2 8a5 5 0 0 1-8 0 5 5 0 0 1-8 0 5 5 0 0 1-8 0 5 5 0 0 1-8 0z"/><path d="M20 40V28h8v12"/></svg><h3>Commerces et hôtels</h3><p>Un lieu impeccable pour accueillir vos clients.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-fin-de-chantier-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30a16 16 0 0 1 32 0M4 30h40v5H4zM20 15v9M28 15v9"/><path d="M14 41h20"/></svg><h3>Fin de chantier</h3><p>Des locaux prêts pour la remise des clés.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-vitres-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h32v36H8zM24 6v36M8 24h32"/><path d="M13 17l5-5M29 36l6-6"/></svg><h3>Vitres</h3><p>Vitrines et baies vitrées, sans traces.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/remise-en-etat-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l3.2 9.800L37 17l-9.800 3.200L24 30l-3.200-9.800L11 17l9.800-3.200z"/><path d="M38 28l1.500 4.500L44 34l-4.500 1.500L38 40l-1.500-4.500L32 34l4.500-1.500zM10 30l1.200 3.300L14.500 34.500 11.200 35.700 10 39l-1.200-3.300L5.500 34.500l3.300-1.200z"/></svg><h3>Remise en état</h3><p>Quand un nettoyage courant ne suffit plus.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/remplacement-gardien-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="14" r="7"/><path d="M10 42c0-8 6-14 14-14s14 6 14 14"/><path d="M19 34l4 4 7-8"/></svg><h3>Remplacement de gardien</h3><p>Congés ou absence : la résidence reste tenue.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card card-ask" href="/contact/"><h3>Un autre besoin ?</h3><p>Dites-nous ce qu'il vous faut, on vous répond sous 24 heures.</p><span class="more">Nous écrire <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li></ul>
+    </div>
+  </section>
+
+  <section class="sec paper on-light" id="photos">
+    <div class="wrap">
+      <div class="head rv"><h2>Notre travail, en vrai</h2><p>Des photos prises sur nos chantiers, sans retouche.</p></div>
+      <ul class="shots"><li class="rv"><figure><img src="/assets/img/photos/p07.jpg" width="825" height="1100" alt="Agent TL Propreté nettoyant la rampe d'une cage d'escalier" loading="lazy" decoding="async"><figcaption>Cages d'escalier</figcaption></figure></li><li class="rv"><figure><img src="/assets/img/photos/p06.jpg" width="825" height="1100" alt="Nettoyage des boutons d'un ascenseur avec une microfibre" loading="lazy" decoding="async"><figcaption>Ascenseurs</figcaption></figure></li><li class="rv"><figure><img src="/assets/img/photos/p02.jpg" width="619" height="1100" alt="Sol brillant dans des locaux professionnels après nettoyage" loading="lazy" decoding="async"><figcaption>Bureaux et locaux</figcaption></figure></li><li class="rv"><figure><img src="/assets/img/photos/p03.jpg" width="825" height="1100" alt="Local poubelles propre, sol lavé" loading="lazy" decoding="async"><figcaption>Locaux poubelles</figcaption></figure></li><li class="rv"><figure><img src="/assets/img/photos/p05.jpg" width="619" height="1100" alt="Monobrosse en action sur un sol carrelé" loading="lazy" decoding="async"><figcaption>Remise en état des sols</figcaption></figure></li><li class="rv"><figure><img src="/assets/img/photos/p11.jpg" width="825" height="1100" alt="Véhicule TL Propreté" loading="lazy" decoding="async"><figcaption>Notre équipe se déplace chez vous</figcaption></figure></li></ul>
     </div>
   </section>
 
@@ -736,7 +750,7 @@ void main(){
     /* manche : cylindre brillant, poignée striée en bout */
     float hw=7.5*k;float hm=smoothstep(hw+1.,hw-1.,abs(v))*smoothstep(20.*k,22.*k,t)*smoothstep(122.*k,118.*k,t);
     float hu=clamp(v/hw,-1.,1.),hz=sqrt(1.-hu*hu);
-    vec3 hc=mix(vec3(.14,.36,.8),vec3(.5,.79,1.),hz);
+    vec3 hc=mix(vec3(.1,.42,.72),vec3(.384,.835,.98),hz);
     hc+=.55*pow(max(0.,1.-abs(hu+.38)*2.2),6.);
     float grip=smoothstep(70.*k,74.*k,t);
     vec3 gc=mix(vec3(.03,.05,.16),vec3(.16,.2,.36),hz)*(.75+.25*step(.5,fract(t/(4.5*k))));
@@ -747,7 +761,7 @@ void main(){
     over(mix(vec3(.03,.05,.16),vec3(.2,.25,.42),smoothstep(hw,0.,capd)),smoothstep(hw+.5,hw-1.,capd)*step(120.*k,t)*uBladeA);
     /* tête */
     float cw=19.*k;float cm=smoothstep(cw+1.,cw-1.,abs(v)-max(0.,(12.*k-t))*.55)*smoothstep(8.*k,10.*k,t)*smoothstep(27.*k,25.*k,t);
-    vec3 cc=mix(vec3(.55,.82,1.),vec3(.2,.46,.86),smoothstep(8.*k,27.*k,t));
+    vec3 cc=mix(vec3(.45,.86,.99),vec3(.14,.5,.8),smoothstep(8.*k,27.*k,t));
     cc+=.35*smoothstep(3.*k,0.,abs(t-13.*k))*smoothstep(cw,0.,abs(v));
     over(cc,cm*uBladeA);
     /* barrette métal : reflet qui glisse avec le mouvement */
@@ -823,7 +837,7 @@ async function boot(){
     es.add(new THREE.Mesh(new THREE.BoxGeometry(30,30,30),new THREE.MeshBasicMaterial({color:0x3350e0,side:THREE.BackSide})));
     const panel=(c,k,w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,y*.4,0);es.add(m);};
     /* mur côté caméra : alternance de bandes claires et sombres, que la face polie reflète en glissant */
-    [[-11.5,2.2,0xffffff,2.4],[-8.6,1.5,0x030a40,1],[-6.4,.7,0xffffff,3.4],[-4.6,1.9,0x06146e,1],[-2.5,1.1,0xffffff,2],[-.9,.6,0x030a40,1],[.5,1.5,0xdfe7ff,1.5],[2.4,.45,0x7cc8ff,3],[3.8,1.6,0x030a40,1],[5.9,1,0xffffff,3.2],[8,2,0x06146e,1],[10.8,1.8,0xffffff,2.2]]
+    [[-11.5,2.2,0xffffff,2.4],[-8.6,1.5,0x030a40,1],[-6.4,.7,0xffffff,3.4],[-4.6,1.9,0x06146e,1],[-2.5,1.1,0xffffff,2],[-.9,.6,0x030a40,1],[.5,1.5,0xdfe7ff,1.5],[2.4,.45,0x62d5fa,3],[3.8,1.6,0x030a40,1],[5.9,1,0xffffff,3.2],[8,2,0x06146e,1],[10.8,1.8,0xffffff,2.2]]
       .forEach(([x,w,c,k])=>panel(c,k,w,26,x,0,13));
     panel(0xffffff,7,22,2.2,0,11,7);
     panel(0x030a40,1,26,5,0,-12,6);
