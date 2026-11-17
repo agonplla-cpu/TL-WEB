@@ -28,7 +28,7 @@
 :root{
   --blue:#092094; --blue-lit:#1b3fe0; --ink:#060b2e; --night:#040828;
   --paper:#f3f5fb; --white:#fff; --line:#d3d9ea; --text:#0b1030; --muted:#454c6b;
-  --yellow:#ffd23f; --on-dark:#e9edff; --on-dark-muted:#b9c2ee;
+  --accent:#7cc8ff; --on-dark:#e9edff; --on-dark-muted:#b9c2ee;
   --wrap:1240px; --pad:clamp(20px,4.5vw,56px);
   --font:"Archivo",Helvetica,Arial,sans-serif;
 }
@@ -39,16 +39,16 @@ img,svg{display:block;max-width:100%}
 a{color:inherit}
 h1,h2,h3,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:2px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
 .on-light :focus-visible,.on-light:focus-visible{outline-color:var(--blue)}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{width:100%;max-width:calc(var(--wrap) + 2*var(--pad));margin:0 auto;padding:0 var(--pad)}
-.skip{position:fixed;left:12px;top:-80px;z-index:100;background:var(--yellow);color:var(--ink);padding:12px 18px;font-weight:700;text-decoration:none}
+.skip{position:fixed;left:12px;top:-80px;z-index:100;background:var(--accent);color:var(--ink);padding:12px 18px;font-weight:700;text-decoration:none}
 .skip:focus{top:12px}
 
 /* ---------- boutons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;font:700 18px/1 var(--font);font-stretch:108%;letter-spacing:.01em;text-decoration:none;border:2px solid transparent;border-radius:3px;cursor:pointer;transition:transform .18s,background-color .18s,color .18s,border-color .18s}
-.btn-main{background:var(--yellow);color:var(--ink)}
+.btn-main{background:var(--accent);color:var(--ink)}
 .btn-main:hover{background:#fff;transform:translateY(-2px)}
 .btn-line{border-color:rgba(255,255,255,.7);color:#fff;background:rgba(4,8,40,.25)}
 .btn-line:hover{background:#fff;color:var(--blue);border-color:#fff}
@@ -101,17 +101,19 @@ ul,ol{padding:0;list-style:none}
     linear-gradient(160deg,#0a23a3 0%,#092094 45%,#050c4e 100%);
   display:flex;flex-direction:column}
 @media (min-width:900px) and (min-height:640px){.hero{position:sticky;top:0;height:100vh;height:100svh}}
-.hero-in{position:relative;z-index:1;flex:1;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:clamp(24px,4vw,72px);padding-top:92px;padding-bottom:96px}
-.hero-copy{max-width:700px}
+.hero-in{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:clamp(24px,4vw,72px);padding-top:92px;padding-bottom:96px}
+.hero-copy{position:relative;z-index:3;max-width:700px;padding:30px 32px;margin:-30px -32px;border-radius:22px;transition:background-color .9s ease,box-shadow .9s ease}
+.has-gl:not(.is-clean) .hero-copy{background:rgba(6,11,46,.86);box-shadow:0 24px 60px rgba(2,4,30,.45)}
+@media (max-width:899px){.hero-copy{padding:20px;margin:-8px -8px 0}}
 .eyebrow{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark)}
-.eyebrow::before{content:"";width:34px;height:3px;background:var(--yellow)}
+.eyebrow::before{content:"";width:34px;height:3px;background:var(--accent)}
 .hero h1{margin-top:22px;font-weight:800;font-stretch:122%;font-size:clamp(2.05rem,min(4.5vw,7.6vh),4.3rem);line-height:1.03;letter-spacing:-.022em;text-wrap:balance}
-.hero h1 em{font-style:normal;color:var(--yellow)}
+.hero h1 em{font-style:normal;color:var(--accent)}
 .hero .lead{margin-top:24px;max-width:600px;font-size:clamp(17px,1.35vw,20px);line-height:1.55;color:var(--on-dark)}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
 .hero-facts{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:28px;font-size:17px;font-weight:500;color:var(--on-dark)}
 .hero-facts li{display:flex;align-items:center;gap:9px}
-.hero-facts li::before{content:"";width:9px;height:9px;background:var(--yellow);transform:rotate(45deg)}
+.hero-facts li::before{content:"";width:9px;height:9px;background:var(--accent);transform:rotate(45deg)}
 .hero-mono{justify-self:center;height:min(60vh,600px);aspect-ratio:1175/1435;max-width:100%}
 .hero-mono svg{width:100%;height:100%;fill:#fff;filter:drop-shadow(0 30px 40px rgba(2,4,30,.5))}
 .has-gl .hero-mono svg{visibility:hidden}
@@ -148,11 +150,12 @@ button.pill:hover{background:#fff;color:var(--ink)}
   .glass-ui .pill{min-height:46px;padding:0 16px}
   .hint svg{display:none}
   .glass-ui .replay{display:none!important}
+  .glass-ui{display:none}
 }
 
 /* ---------- sections */
 main>section:not(.hero),.strip,footer{position:relative;z-index:1}
-.strip{background:var(--yellow);color:var(--ink);box-shadow:0 -24px 60px rgba(2,4,30,.45)}
+.strip{background:var(--accent);color:var(--ink);box-shadow:0 -24px 60px rgba(2,4,30,.45)}
 .strip ul{display:flex;flex-wrap:wrap;gap:6px 44px;padding:18px 0;font-size:18px;font-weight:700;font-stretch:108%}
 .strip li{display:flex;align-items:center;gap:12px}
 .strip li+li::before{content:"";width:8px;height:8px;background:var(--ink);transform:rotate(45deg);margin-left:-26px;margin-right:6px}
@@ -163,7 +166,7 @@ main>section:not(.hero),.strip,footer{position:relative;z-index:1}
 .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px clamp(32px,6vw,96px);align-items:end;margin-bottom:clamp(40px,5vw,72px)}
 .sec-head .kicker,.kicker{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
 .kicker::before{content:"";width:34px;height:3px;background:currentColor}
-.dark .sec-head .kicker{color:var(--yellow)}
+.dark .sec-head .kicker{color:var(--accent)}
 h2{font-weight:800;font-stretch:118%;font-size:clamp(2rem,3.7vw,3.4rem);line-height:1.06;letter-spacing:-.02em;text-wrap:balance}
 .sec-head p{font-size:clamp(18px,1.4vw,21px);color:var(--muted);max-width:560px}
 .dark .sec-head p{color:var(--on-dark-muted)}
@@ -178,7 +181,7 @@ h2{font-weight:800;font-stretch:118%;font-size:clamp(2rem,3.7vw,3.4rem);line-hei
 .svc .num{font-size:17px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums;letter-spacing:.06em;transition:color .3s}
 .svc h3{font-size:clamp(1.3rem,2vw,1.75rem);font-weight:700;font-stretch:112%;line-height:1.15;letter-spacing:-.01em}
 .svc p{color:var(--muted);transition:color .3s}
-.svc a:hover .num,.svc a:focus-visible .num{color:var(--yellow)}
+.svc a:hover .num,.svc a:focus-visible .num{color:var(--accent)}
 .svc a:hover p,.svc a:focus-visible p{color:var(--on-dark)}
 .svc .go{justify-self:end;width:46px;height:46px;border:2px solid currentColor;border-radius:50%;display:grid;place-items:center;transition:transform .3s}
 .svc .go svg{width:18px;height:18px}
@@ -199,7 +202,7 @@ h2{font-weight:800;font-stretch:118%;font-size:clamp(2rem,3.7vw,3.4rem);line-hei
 .tech-item p{color:var(--on-dark-muted)}
 .qr{position:relative;width:96px;height:96px;background:#fff;padding:7px;overflow:hidden}
 .qr svg{width:82px;height:82px}
-.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--yellow);box-shadow:0 0 14px 4px rgba(255,210,63,.75);animation:scan 2.6s cubic-bezier(.5,0,.5,1) infinite alternate}
+.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);box-shadow:0 0 14px 4px rgba(124,200,255,.75);animation:scan 2.6s cubic-bezier(.5,0,.5,1) infinite alternate}
 @keyframes scan{from{transform:translateY(4px)}to{transform:translateY(89px)}}
 @media (max-width:900px){
   .tech-grid{grid-template-columns:1fr}
@@ -212,10 +215,10 @@ h2{font-weight:800;font-stretch:118%;font-size:clamp(2rem,3.7vw,3.4rem);line-hei
 .plan>div>p{color:var(--on-dark-muted)}
 .plan table{width:100%;border-collapse:collapse;font-size:17px}
 .plan th,.plan td{padding:15px 6px;border-bottom:1px solid rgba(255,255,255,.2);text-align:center}
-.plan thead th{font-weight:700;color:var(--yellow);border-bottom:2px solid var(--yellow)}
+.plan thead th{font-weight:700;color:var(--accent);border-bottom:2px solid var(--accent)}
 .plan thead th:first-child,.plan tbody th{text-align:left;font-weight:500;color:#fff;padding-left:0}
 .plan abbr{text-decoration:none}
-.dot{display:inline-block;width:15px;height:15px;border-radius:50%;background:var(--yellow)}
+.dot{display:inline-block;width:15px;height:15px;border-radius:50%;background:var(--accent)}
 .dot.off{background:none;border:2px solid rgba(255,255,255,.3)}
 .plan-extra{margin-top:8px}
 .plan-extra li{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:17px;color:var(--on-dark)}
@@ -269,8 +272,66 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
 @media (max-width:900px){.foot{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.foot{grid-template-columns:1fr}}
 
+
+/* ---------- v3 : blocs, confiance, animations */
+.head{max-width:760px;margin-bottom:clamp(32px,4vw,56px)}
+.head h2{margin-bottom:14px}
+.head p{font-size:clamp(19px,1.5vw,22px);color:var(--muted)}
+.head a{color:var(--blue);font-weight:700}
+.stats{position:relative;z-index:1;background:var(--accent);color:var(--ink);box-shadow:0 -24px 60px rgba(2,4,30,.45)}
+.stats ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 32px;padding:34px 0}
+.stats li{display:grid;gap:4px}
+.stats b{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:800;font-stretch:120%;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stats li>span{font-size:18px;font-weight:600}
+@media (max-width:760px){.stats ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.card{position:relative;display:flex;flex-direction:column;height:100%;padding:28px 26px 26px;border-radius:20px;background:var(--paper);text-decoration:none;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),background-color .35s,color .35s,box-shadow .35s}
+.card .ico{width:68px;height:68px;padding:13px;border-radius:18px;background:#fff;color:var(--blue);margin-bottom:22px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background-color .35s,color .35s}
+.card h3{font-size:1.35rem;font-weight:800;font-stretch:112%;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px}
+.card p{color:var(--muted);transition:color .35s;margin-bottom:22px}
+.card .more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--blue);transition:color .35s,gap .35s}
+.card .more svg{width:18px;height:18px}
+.card:hover,.card:focus-visible{background:var(--blue);color:#fff;transform:translateY(-6px);box-shadow:0 22px 44px rgba(9,32,148,.28)}
+.card:hover .ico,.card:focus-visible .ico{background:var(--accent);color:var(--ink);transform:rotate(-6deg) scale(1.08)}
+.card:hover p,.card:focus-visible p{color:var(--on-dark)}
+.card:hover .more,.card:focus-visible .more{color:var(--accent);gap:14px}
+.card-ask{background:var(--blue);color:#fff;justify-content:flex-end}
+.card-ask p{color:var(--on-dark)}
+.card-ask .more{color:var(--accent)}
+.card-ask:hover,.card-ask:focus-visible{background:var(--ink)}
+@media (max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}.card{padding:22px}}
+.sec.trust{background:linear-gradient(160deg,#0a23a3 0%,#092094 45%,#050c4e 100%);color:#fff}
+.trust .head p{color:var(--on-dark)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.trio li{padding:30px 28px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+.trio .ico{width:64px;height:64px;padding:12px;border-radius:18px;background:var(--accent);color:var(--ink);margin-bottom:22px}
+.trio h3{font-size:1.4rem;font-weight:800;font-stretch:112%;line-height:1.15;margin-bottom:10px}
+.trio p{color:var(--on-dark)}
+@media (max-width:900px){.trio{grid-template-columns:1fr}}
+.trust .plan{margin-top:clamp(36px,5vw,64px);padding:clamp(24px,3vw,40px);border-radius:20px;background:rgba(4,8,40,.45)}
+.trust .plan>div>p{color:var(--on-dark)}
+.plan .dot{transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.plan.in .dot{transform:scale(1)}
+.plan td:nth-child(3) .dot{transition-delay:.08s}.plan td:nth-child(4) .dot{transition-delay:.16s}.plan td:nth-child(5) .dot{transition-delay:.24s}.plan td:nth-child(6) .dot{transition-delay:.32s}.plan td:nth-child(7) .dot{transition-delay:.4s}.plan td:nth-child(8) .dot{transition-delay:.48s}
+.steps li{padding:34px 24px 0 0}
+.steps li::before{-webkit-text-stroke:0;color:var(--blue)}
+.steps li::after{background:var(--accent);width:16px;height:16px;top:-9px;border-radius:50%;transform:none;box-shadow:0 0 0 5px #fff}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chips li{padding:12px 20px;border-radius:999px;background:#fff;border:2px solid var(--line);font-size:19px;font-weight:700;transition:transform .25s,border-color .25s,color .25s}
+.chips li:hover{transform:translateY(-3px);border-color:var(--blue);color:var(--blue)}
+.cta-act .btn-main{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(124,200,255,.55)}50%{box-shadow:0 0 0 16px rgba(124,200,255,0)}}
+/* apparition au défilement (seulement si le script tourne) */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.js li.rv:nth-child(2){transition-delay:.08s}.js li.rv:nth-child(3){transition-delay:.16s}.js li.rv:nth-child(4){transition-delay:.24s}
+.js li.rv:nth-child(5){transition-delay:.06s}.js li.rv:nth-child(6){transition-delay:.14s}.js li.rv:nth-child(7){transition-delay:.22s}.js li.rv:nth-child(8){transition-delay:.3s}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none}
+  .plan .dot{transform:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .qr::after{transform:translateY(46px)}
 }
@@ -294,8 +355,8 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
       <a href="#prestations">Prestations</a>
-      <a href="#technologie">Technologie</a>
-      <a href="#methode">Méthode</a>
+      <a href="#engagements">Nos engagements</a>
+      <a href="#methode">Comment ça se passe</a>
       <a href="#zones">Zones</a>
     </nav>
     <a class="top-tel" href="tel:+33605031096" aria-label="Appeler le 06 05 03 10 96"><svg aria-hidden="true"><use href="#i-tel"/></svg><span>06 05 03 10 96</span></a>
@@ -309,16 +370,16 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
     <div class="wrap hero-in">
       <div class="hero-copy">
         <p class="eyebrow">Entreprise de propreté · Lyon</p>
-        <h1 id="titre">Nettoyage de copropriétés, bureaux et commerces <em>à Lyon</em></h1>
-        <p class="lead">Depuis 2021, TL Propreté entretient les parties communes, les locaux professionnels et les commerces de la métropole lyonnaise, avec un cahier des charges écrit pour chaque lieu.</p>
+        <h1 id="titre">Vos locaux propres, <em>toute l'année.</em></h1>
+        <p class="lead">Nettoyage d'immeubles, de bureaux et de commerces à Lyon. Une équipe sérieuse, un travail suivi, un seul interlocuteur.</p>
         <div class="hero-cta">
-          <a class="btn btn-main" href="/contact/">Demander un devis <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-main" href="/contact/">Demander un devis gratuit <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-line" href="tel:+33605031096"><svg aria-hidden="true"><use href="#i-tel"/></svg> 06 05 03 10 96</a>
         </div>
         <ul class="hero-facts">
-          <li>Visite des lieux gratuite</li>
-          <li>Devis détaillé sous 24 heures</li>
-          <li>Passages contrôlés par QR code</li>
+          <li>Visite gratuite</li>
+          <li>Devis sous 24 heures</li>
+          <li>Sans engagement</li>
         </ul>
       </div>
       <div class="hero-mono" id="mono-slot" aria-hidden="true">
@@ -334,76 +395,43 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
     </div>
   </section>
 
-  <div class="strip">
+  <div class="stats">
     <div class="wrap">
       <ul>
-        <li>Depuis 2021</li>
-        <li>Une équipe de 7 personnes</li>
-        <li>Lyon et sa métropole</li>
-        <li>Du lundi au vendredi, de 8 h à 18 h</li>
+        <li class="rv"><b><span data-count="2021" data-plain>2021</span></b><span>Depuis 2021 à Lyon</span></li>
+        <li class="rv"><b><span data-count="7">7</span></b><span>personnes dans l'équipe</span></li>
+        <li class="rv"><b><span data-count="24">24</span> h</b><span>pour recevoir votre devis</span></li>
+        <li class="rv"><b>0 €</b><span>la visite et le devis</span></li>
       </ul>
     </div>
   </div>
 
   <section class="sec on-light" id="prestations">
     <div class="wrap">
-      <div class="sec-head">
-        <div><p class="kicker">Prestations</p><h2>Ce que nous entretenons</h2></div>
-        <p>Des parties communes d'une résidence aux vitrines d'une boutique, chaque prestation part d'une visite et d'un cahier des charges écrit.</p>
-      </div>
-      <ol class="svc">
-        <li><a href="/nettoyage-copropriete-lyon/"><span class="num">01</span><h3>Copropriétés et immeubles</h3><p>Halls, escaliers, ascenseurs, locaux poubelles et sortie des containers, selon un cahier des charges écrit pour chaque résidence.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/nettoyage-bureaux-lyon/"><span class="num">02</span><h3>Bureaux et locaux professionnels</h3><p>Open spaces, salles de réunion, sanitaires et cuisines, entretenus avant ou après vos horaires.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/nettoyage-commerces-hotels-lyon/"><span class="num">03</span><h3>Commerces et hôtels</h3><p>Surfaces de vente, vitrines, sanitaires clients, halls et couloirs d'hôtels, au rythme de vos horaires d'ouverture.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/nettoyage-fin-de-chantier-lyon/"><span class="num">04</span><h3>Fin de chantier</h3><p>Poussière, traces de peinture, adhésifs et résidus enlevés : des locaux prêts pour la réception ou la remise des clés.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/nettoyage-vitres-lyon/"><span class="num">05</span><h3>Vitrerie</h3><p>Devantures, baies vitrées, portes de hall et verrières, à l'intérieur comme à l'extérieur.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/remise-en-etat-lyon/"><span class="num">06</span><h3>Remise en état</h3><p>Décapage, cristallisation du marbre, shampoing moquette, remise en état locative : quand l'entretien courant ne suffit plus.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-        <li><a href="/remplacement-gardien-lyon/"><span class="num">07</span><h3>Remplacement de gardien</h3><p>Congés, arrêt ou départ : les tâches d'entretien du gardien sont assurées et la résidence reste tenue.</p><span class="go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a></li>
-      </ol>
+      <div class="head rv"><h2>Ce que nous nettoyons</h2><p>Choisissez votre besoin.</p></div>
+      <ul class="cards"><li class="rv"><a class="card" href="/nettoyage-copropriete-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 42V8h20v34M30 18h8v24M6 42h36"/><path d="M16 15h3M23 15h3M16 22h3M23 22h3M16 29h3M23 29h3M18 42v-6h6v6"/></svg><h3>Immeubles et copropriétés</h3><p>Halls, escaliers, ascenseurs, local poubelles.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-bureaux-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30h36M10 30v10M38 30v10M16 30V18h16v12"/><path d="M20 12h8v6h-8zM22 24h4"/></svg><h3>Bureaux</h3><p>Avant ou après vos horaires, sans vous déranger.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-commerces-hotels-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20v20h32V20M6 12h36l-2 8a5 5 0 0 1-8 0 5 5 0 0 1-8 0 5 5 0 0 1-8 0 5 5 0 0 1-8 0z"/><path d="M20 40V28h8v12"/></svg><h3>Commerces et hôtels</h3><p>Un lieu impeccable pour accueillir vos clients.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-fin-de-chantier-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30a16 16 0 0 1 32 0M4 30h40v5H4zM20 15v9M28 15v9"/><path d="M14 41h20"/></svg><h3>Fin de chantier</h3><p>Des locaux prêts pour la remise des clés.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/nettoyage-vitres-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h32v36H8zM24 6v36M8 24h32"/><path d="M13 17l5-5M29 36l6-6"/></svg><h3>Vitres</h3><p>Vitrines et baies vitrées, sans traces.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/remise-en-etat-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l3.2 9.800L37 17l-9.800 3.200L24 30l-3.200-9.800L11 17l9.800-3.200z"/><path d="M38 28l1.500 4.500L44 34l-4.500 1.500L38 40l-1.500-4.500L32 34l4.500-1.500zM10 30l1.200 3.300L14.500 34.500 11.200 35.700 10 39l-1.200-3.300L5.500 34.500l3.300-1.200z"/></svg><h3>Remise en état</h3><p>Quand un nettoyage courant ne suffit plus.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card" href="/remplacement-gardien-lyon/"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="14" r="7"/><path d="M10 42c0-8 6-14 14-14s14 6 14 14"/><path d="M19 34l4 4 7-8"/></svg><h3>Remplacement de gardien</h3><p>Congés ou absence : la résidence reste tenue.</p><span class="more">En savoir plus <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li><li class="rv"><a class="card card-ask" href="/contact/"><h3>Un autre besoin ?</h3><p>Dites-nous ce qu'il vous faut, on vous répond sous 24 heures.</p><span class="more">Nous écrire <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li></ul>
     </div>
   </section>
 
-  <section class="sec dark" id="technologie">
+  <section class="sec trust" id="engagements">
     <div class="wrap">
-      <div class="sec-head">
-        <div><p class="kicker">Technologie</p><h2>La technologie au service du propre</h2></div>
-        <p>Ce qui est prévu est écrit, ce qui est fait est daté. Nos outils servent à cela : garder une trace de chaque passage.</p>
-      </div>
-      <ul class="tech-grid">
-        <li class="tech-item">
-          <div class="qr" aria-hidden="true"><svg viewBox="0 0 21 21" shape-rendering="crispEdges"><path fill="#060b2e" d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM14 1h1v1h-1zM20 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM20 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM15 6h1v1h-1zM16 6h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM0 8h1v1h-1zM1 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM14 8h1v1h-1zM17 8h1v1h-1zM0 9h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM16 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM10 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM1 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM6 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM13 11h1v1h-1zM14 11h1v1h-1zM17 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM9 13h1v1h-1zM14 13h1v1h-1zM18 13h1v1h-1zM19 13h1v1h-1zM20 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM12 14h1v1h-1zM14 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM0 15h1v1h-1zM6 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM8 16h1v1h-1zM9 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM16 16h1v1h-1zM18 16h1v1h-1zM20 16h1v1h-1zM0 17h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM6 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM10 17h1v1h-1zM11 17h1v1h-1zM12 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM18 17h1v1h-1zM19 17h1v1h-1zM20 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM10 18h1v1h-1zM14 18h1v1h-1zM18 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM9 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM19 19h1v1h-1zM0 20h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1z"/></svg></div>
-          <div><h3>Lavage des bacs suivi par QR code</h3><p>L'agent valide chaque lavage en scannant le code affiché dans le local poubelles. Chaque passage est daté, et l'historique peut être présenté au conseil syndical.</p></div>
-        </li>
-        <li class="tech-item">
-          <svg viewBox="0 0 96 96" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3"><path d="M20 8h42l14 14v66H20z"/><path d="M62 8v14h14" /><path d="M32 38h32M32 52h32M32 66h20" stroke="#ffd23f"/><path d="M60 68l5 5 9-11" stroke="#ffd23f" stroke-width="4"/></svg>
-          <div><h3>Cahier des charges et planning écrits, par résidence</h3><p>Chaque immeuble a son document : ce qui est fait, quel jour, à quelle fréquence. Il sert de référence à nos agents, au syndic et au conseil syndical.</p></div>
-        </li>
-        <li class="tech-item">
-          <svg viewBox="0 0 96 96" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3"><circle cx="48" cy="48" r="38"/><path d="M48 24v24l17 10" stroke="#ffd23f" stroke-width="4"/><path d="M48 4v8M48 84v8M4 48h8M84 48h8"/></svg>
-          <div><h3>Devis en ligne, détaillé sous 24 heures</h3><p>Vous décrivez le lieu et la fréquence souhaitée en ligne. Vous recevez un devis poste par poste, avec les fréquences proposées.</p></div>
-        </li>
-        <li class="tech-item">
-          <svg viewBox="0 0 96 96" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3"><path d="M8 14h80v60H8z"/><path d="M8 30h80M32 30v44"/><path d="M42 42h14M62 42h16M42 54h24M42 64h10M58 64h20" stroke="#ffd23f" stroke-width="5"/><path d="M34 88h28M48 74v14"/></svg>
-          <div><h3>TL OS, notre plateforme de pilotage</h3><p>Un outil interne, développé pour notre activité, où nous tenons les plannings et le suivi des passages.</p></div>
-        </li>
+      <div class="head rv"><h2>Vous savez toujours ce qui a été fait</h2><p>Pas de mauvaise surprise : tout est clair dès le départ.</p></div>
+      <ul class="trio">
+        <li class="rv"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h18l8 8v28H12z"/><path d="M30 6v8h8M18 22h12M18 29h12M18 36h7"/></svg><h3>Tout est écrit</h3><p>Les tâches et les jours de passage sont notés noir sur blanc, pour chaque lieu.</p></li>
+        <li class="rv"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8h12v12H8zM28 8h12v12H28zM8 28h12v12H8z"/><path d="M28 28h5v5h-5zM35 35h5v5h-5zM28 40h2M40 28v2"/></svg><h3>Chaque passage est enregistré</h3><p>Notre agent scanne un code sur place : le passage est daté.</p></li>
+        <li class="rv"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="16" r="8"/><path d="M8 42c0-9 7-15 16-15s16 6 16 15"/></svg><h3>Un seul interlocuteur</h3><p>Une question, un changement ? Vous appelez directement la même personne.</p></li>
       </ul>
-      <div class="plan">
+      <div class="plan rv">
         <div>
-          <h3>Une semaine type</h3>
-          <p>Planning d'une résidence que nous entretenons à Lyon. Chaque immeuble a le sien, validé avec le syndic et le conseil syndical avant le premier passage.</p>
+          <h3>Exemple : la semaine d'une résidence</h3>
+          <p>Chaque lieu a son planning, décidé avec vous avant de commencer.</p>
         </div>
         <div>
           <table>
-            <caption class="vh">Passages hebdomadaires par tâche, du lundi au dimanche</caption>
+            <caption class="vh">Passages de la semaine par tâche, du lundi au dimanche</caption>
             <thead><tr><th scope="col">Tâche</th><th scope="col"><abbr title="Lundi">L</abbr></th><th scope="col"><abbr title="Mardi">M</abbr></th><th scope="col"><abbr title="Mercredi">M</abbr></th><th scope="col"><abbr title="Jeudi">J</abbr></th><th scope="col"><abbr title="Vendredi">V</abbr></th><th scope="col"><abbr title="Samedi">S</abbr></th><th scope="col"><abbr title="Dimanche">D</abbr></th></tr></thead>
-            <tbody><tr><th scope="row">Entretien du hall et des paliers</th><td><span class="dot" aria-hidden="true"></span><span class="vh">Lundi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mardi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mercredi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Jeudi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Vendredi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Samedi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr><tr><th scope="row">Sortie des ordures ménagères</th><td><span class="dot" aria-hidden="true"></span><span class="vh">Lundi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mardi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mercredi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Jeudi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Vendredi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Samedi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr><tr><th scope="row">Sortie du tri sélectif</th><td><span class="dot off" aria-hidden="true"></span><span class="vh">Lundi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mardi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mercredi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Jeudi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Vendredi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Samedi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr></tbody>
+            <tbody><tr><th scope="row">Hall et paliers</th><td><span class="dot" aria-hidden="true"></span><span class="vh">Lundi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mardi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mercredi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Jeudi : oui</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Vendredi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Samedi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr><tr><th scope="row">Sortie des poubelles</th><td><span class="dot" aria-hidden="true"></span><span class="vh">Lundi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mardi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mercredi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Jeudi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Vendredi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Samedi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr><tr><th scope="row">Tri sélectif</th><td><span class="dot off" aria-hidden="true"></span><span class="vh">Lundi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Mardi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Mercredi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Jeudi : non</span></td><td><span class="dot" aria-hidden="true"></span><span class="vh">Vendredi : oui</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Samedi : non</span></td><td><span class="dot off" aria-hidden="true"></span><span class="vh">Dimanche : non</span></td></tr></tbody>
           </table>
-          <ul class="plan-extra">
-            <li><span>Prestations mensuelles, le lundi</span><b>1 fois par mois</b></li>
-            <li><span>Pelouses et parkings, le mardi</span><b>1 fois par mois</b></li>
-            <li><span>Vitrerie du hall</span><b>4 fois par an</b></li>
-            <li><span>Vitrerie des escaliers</span><b>1 fois par an</b></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -411,40 +439,30 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
 
   <section class="sec on-light" id="methode">
     <div class="wrap">
-      <div class="sec-head">
-        <div><p class="kicker">Méthode</p><h2>Comment nous travaillons</h2></div>
-        <p>De la première visite au suivi des passages, la même méthode pour chaque lieu.</p>
-      </div>
+      <div class="head rv"><h2>Comment ça se passe</h2><p>Quatre étapes, et c'est parti.</p></div>
       <ol class="steps">
-        <li><h3>Visite des lieux</h3><p>Nous venons voir les surfaces, les accès et vos contraintes d'horaires. La visite est gratuite.</p></li>
-        <li><h3>Devis sous 24 heures</h3><p>Un devis détaillé poste par poste, avec les fréquences proposées.</p></li>
-        <li><h3>Cahier des charges</h3><p>Les tâches et leurs fréquences sont écrites. Elles servent de référence à nos agents comme à vous.</p></li>
-        <li><h3>Passages et suivi</h3><p>Les interventions suivent le planning. Vous avez un interlocuteur direct pour tout ajustement.</p></li>
+        <li class="rv"><h3>On vient voir</h3><p>Une visite sur place, gratuite.</p></li>
+        <li class="rv"><h3>Vous recevez un devis</h3><p>Clair et détaillé, sous 24 heures.</p></li>
+        <li class="rv"><h3>On fixe le planning</h3><p>Les jours et les tâches, décidés ensemble.</p></li>
+        <li class="rv"><h3>On s'occupe de tout</h3><p>Nous nettoyons, vous êtes tranquille.</p></li>
       </ol>
     </div>
   </section>
 
   <section class="sec paper on-light" id="zones">
     <div class="wrap">
-      <div class="sec-head">
-        <div><p class="kicker">Zones d'intervention</p><h2>Lyon et sa métropole, depuis <span style="white-space:nowrap">Tassin-la-Demi-Lune</span></h2></div>
-        <p>Notre équipe intervient dans toute la métropole lyonnaise, à partir de nos locaux de l'Ouest lyonnais.</p>
-      </div>
-      <div class="zones">
-        <div><h3>Lyon</h3><ul><li>Tous les arrondissements, du 1er au 9e</li></ul></div>
-        <div><h3>Ouest lyonnais</h3><ul><li>Tassin-la-Demi-Lune</li><li>Écully</li></ul></div>
-        <div><h3>Nord et est</h3><ul><li>Caluire-et-Cuire</li><li>Rillieux-la-Pape</li><li>Villeurbanne</li><li>Bron</li></ul></div>
-        <div><h3>Sud</h3><ul><li>Vénissieux</li><li>Oullins-Pierre-Bénite</li></ul></div>
-      </div>
-      <p class="zones-note">Votre commune n'est pas dans la liste ? <a href="/contact/">Demandez-nous</a>.</p>
+      <div class="head rv"><h2>Nous intervenons à Lyon et autour</h2><p>Votre commune n'est pas dans la liste ? <a href="/contact/">Demandez-nous</a>.</p></div>
+      <ul class="chips rv">
+        <li>Lyon, du 1er au 9e</li><li>Tassin-la-Demi-Lune</li><li>Écully</li><li>Caluire-et-Cuire</li><li>Rillieux-la-Pape</li><li>Villeurbanne</li><li>Bron</li><li>Vénissieux</li><li>Oullins-Pierre-Bénite</li>
+      </ul>
     </div>
   </section>
 
   <section class="cta" id="devis" aria-labelledby="cta-t">
     <div class="wrap cta-in">
       <div>
-        <h2 id="cta-t">Parlons de votre immeuble</h2>
-        <p class="big">Décrivez le lieu et la fréquence souhaitée : nous revenons vers vous sous 24 heures pour fixer une visite. La visite et le devis sont gratuits et sans engagement.</p>
+        <h2 id="cta-t">Parlons de vos locaux</h2>
+        <p class="big">Dites-nous où et à quelle fréquence. Nous vous rappelons sous 24 heures. C'est gratuit et sans engagement.</p>
       </div>
       <div class="cta-act">
         <a class="btn btn-main" href="/contact/">Demander un devis <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -487,6 +505,18 @@ footer{background:var(--night);color:var(--on-dark-muted);padding:72px 0 28px;fo
   top.querySelector('.nav').addEventListener('click',function(e){if(e.target.closest('a')){top.classList.remove('open');btn.setAttribute('aria-expanded','false');sync()}});
   function sync(){top.classList.toggle('solid',next.getBoundingClientRect().top<=70||top.classList.contains('open'))}
   addEventListener('scroll',sync,{passive:true});addEventListener('resize',sync);sync();
+})();
+
+/* Apparition des blocs au défilement et compteurs */
+(function(){
+  var root=document.documentElement,calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)||calm)return;
+  root.classList.add('js');
+  function count(el){var to=+el.dataset.count,from=el.hasAttribute('data-plain')?to-12:0,t0=performance.now();
+    (function step(t){var k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0)}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('in');
+    [].forEach.call(e.target.querySelectorAll('[data-count]'),count);io.unobserve(e.target)})},{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+  [].forEach.call(document.querySelectorAll('.rv'),function(el){io.observe(el)});
 })();
 </script>
 
@@ -694,11 +724,11 @@ void main(){
     over(vec3(0.,.01,.08),shd*.38*uBladeA);
     /* manche */
     float hw=7.*k;float hm=smoothstep(hw+1.,hw-1.,abs(v))*smoothstep(20.*k,22.*k,t)*smoothstep(118.*k,114.*k,t);
-    vec3 hc=mix(vec3(1.,.82,.25),vec3(.8,.58,.05),smoothstep(-hw,hw,v));hc+=.25*smoothstep(2.5*k,0.,abs(v+2.5*k));
+    vec3 hc=mix(vec3(.49,.78,1.),vec3(.22,.5,.88),smoothstep(-hw,hw,v));hc+=.25*smoothstep(2.5*k,0.,abs(v+2.5*k));
     over(hc,hm*uBladeA);
     /* tête */
     float cw=19.*k;float cm=smoothstep(cw+1.,cw-1.,abs(v)-max(0.,(12.*k-t))*.55)*smoothstep(8.*k,10.*k,t)*smoothstep(27.*k,25.*k,t);
-    over(mix(vec3(1.,.84,.28),vec3(.86,.64,.08),smoothstep(8.*k,27.*k,t)),cm*uBladeA);
+    over(mix(vec3(.52,.8,1.),vec3(.26,.54,.9),smoothstep(8.*k,27.*k,t)),cm*uBladeA);
     /* barrette métal */
     float mm=smoothstep(uL+1.,uL-1.,abs(v))*smoothstep(2.,3.5,t)*smoothstep(11.*k+1.,11.*k-.5,t);
     float mt=(t-3.)/(11.*k-3.);
@@ -767,7 +797,7 @@ async function boot(){
     es.add(new THREE.Mesh(new THREE.BoxGeometry(30,30,30),new THREE.MeshBasicMaterial({color:0x3350e0,side:THREE.BackSide})));
     const panel=(c,k,w,h,x,y,z)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,y*.4,0);es.add(m);};
     /* mur côté caméra : alternance de bandes claires et sombres, que la face polie reflète en glissant */
-    [[-11.5,2.2,0xffffff,2.4],[-8.6,1.5,0x030a40,1],[-6.4,.7,0xffffff,3.4],[-4.6,1.9,0x06146e,1],[-2.5,1.1,0xffffff,2],[-.9,.6,0x030a40,1],[.5,1.5,0xdfe7ff,1.5],[2.4,.45,0xffd23f,3],[3.8,1.6,0x030a40,1],[5.9,1,0xffffff,3.2],[8,2,0x06146e,1],[10.8,1.8,0xffffff,2.2]]
+    [[-11.5,2.2,0xffffff,2.4],[-8.6,1.5,0x030a40,1],[-6.4,.7,0xffffff,3.4],[-4.6,1.9,0x06146e,1],[-2.5,1.1,0xffffff,2],[-.9,.6,0x030a40,1],[.5,1.5,0xdfe7ff,1.5],[2.4,.45,0x7cc8ff,3],[3.8,1.6,0x030a40,1],[5.9,1,0xffffff,3.2],[8,2,0x06146e,1],[10.8,1.8,0xffffff,2.2]]
       .forEach(([x,w,c,k])=>panel(c,k,w,26,x,0,13));
     panel(0xffffff,7,22,2.2,0,11,7);
     panel(0x030a40,1,26,5,0,-12,6);
