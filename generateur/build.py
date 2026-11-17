@@ -191,113 +191,30 @@ def cta_block(title="Parlons de votre immeuble",
 
 # ------------------------------------------------------------------ accueil
 def home():
-    rows = "".join(f'''<li><a class="svc-row" href="/{s["slug"]}/"><h3>{s["name"]}</h3><p>{s["short"]}</p><span class="svc-go">Voir la prestation</span></a></li>''' for s in SERVICES)
-    days = [("L", "Lundi"), ("M", "Mardi"), ("M", "Mercredi"), ("J", "Jeudi"), ("V", "Vendredi"), ("S", "Samedi"), ("D", "Dimanche")]
-    plan = [("Entretien du hall et des paliers", [1, 1, 1, 1, 1, 0, 0]),
-            ("Sortie des ordures ménagères", [1, 0, 0, 1, 0, 1, 0]),
-            ("Sortie du tri sélectif", [0, 1, 0, 0, 1, 0, 0])]
-    head = "".join(f'<th scope="col"><abbr title="{n}">{l}</abbr></th>' for l, n in days)
-    body_rows = ""
-    for task, marks in plan:
-        cells = "".join(
-            f'<td><span class="dot" aria-hidden="true"></span><span class="visually-hidden">{days[i][1]} : oui</span></td>' if m
-            else f'<td><span class="dot dot-off" aria-hidden="true"></span><span class="visually-hidden">{days[i][1]} : non</span></td>'
-            for i, m in enumerate(marks))
-        body_rows += f'<tr><th scope="row">{task}</th>{cells}</tr>'
-    zones = "".join(f'<div><h3>{g}</h3><ul>{"".join(f"<li>{c}</li>" for c in cs)}</ul></div>' for g, cs in ZONES)
-
-    body = f'''<main id="contenu">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-text">
-        <h1>Nettoyage de copropriétés, bureaux et commerces à Lyon</h1>
-        <p class="lead">Depuis 2021, TL Propreté entretient les parties communes, les locaux professionnels et les commerces de la métropole lyonnaise, avec un cahier des charges écrit pour chaque lieu.</p>
-        <div class="btn-row"><a class="btn" href="/contact/">Demander un devis</a><a class="btn btn-ghost" href="tel:{PHONE_INTL}">{PHONE}</a></div>
-        <ul class="hero-facts">
-          <li>Visite des lieux gratuite</li>
-          <li>Devis détaillé sous 24 heures</li>
-          <li>Passages contrôlés par QR code</li>
-        </ul>
-      </div>
-      <figure class="hero-photo">
-        <picture><source srcset="/assets/img/lyon-800.webp 800w, /assets/img/lyon-1280.webp 1280w" sizes="(max-width: 980px) 92vw, 600px" type="image/webp"><img src="/assets/img/lyon-1280.jpg" width="1280" height="853" alt="Lyon de nuit, avec les tours du quartier de la Part-Dieu" fetchpriority="high"></picture>
-      </figure>
-    </div>
-  </section>
-
-  <section class="section" id="prestations">
-    <div class="wrap">
-      <div class="section-head"><h2>Ce que nous entretenons</h2><p>Des parties communes d'une résidence aux vitrines d'une boutique, chaque prestation part d'une visite et d'un cahier des charges écrit.</p></div>
-      <ul class="svc-list">{rows}</ul>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="coproprietes">
-    <div class="wrap copro">
-      <div class="copro-text">
-        <h2>Pour les copropriétés, un planning écrit et tenu</h2>
-        <p class="lead">La plupart de nos contrats sont des résidences gérées par des syndics lyonnais. Chaque immeuble a son cahier des charges : ce qui est fait, quel jour, à quelle fréquence.</p>
-        <ul class="copro-points">
-          <li><strong>Un cahier des charges par résidence</strong><span>Validé avec le syndic et le conseil syndical avant le premier passage.</span></li>
-          <li><strong>Lavage des bacs suivi par QR code</strong><span>L'agent valide chaque lavage en scannant le code affiché dans le local : chaque passage est daté.</span></li>
-          <li><strong>Remplacement du gardien</strong><span>Pendant ses congés, un arrêt ou un recrutement, la résidence reste tenue.</span></li>
-          <li><strong>Reprise d'un contrat en cours</strong><span>Nous repartons du planning existant, sans interruption pour les résidents.</span></li>
-        </ul>
-        <p style="margin-top:32px"><a href="/nettoyage-copropriete-lyon/">La prestation copropriété en détail</a></p>
-      </div>
-      <div class="planning">
-        <h3>Une semaine type</h3>
-        <p>Planning d'une résidence que nous entretenons à Lyon.</p>
-        <table>
-          <caption class="visually-hidden">Passages hebdomadaires par tâche, du lundi au dimanche</caption>
-          <thead><tr><th scope="col">Tâche</th>{head}</tr></thead>
-          <tbody>{body_rows}</tbody>
-        </table>
-        <ul class="planning-extra">
-          <li><span>Prestations mensuelles, le lundi</span><b>1 fois par mois</b></li>
-          <li><span>Pelouses et parkings, le mardi</span><b>1 fois par mois</b></li>
-          <li><span>Vitrerie du hall</span><b>4 fois par an</b></li>
-          <li><span>Vitrerie des escaliers</span><b>1 fois par an</b></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="methode">
-    <div class="wrap">
-      <div class="section-head"><h2>Comment nous travaillons</h2><p>De la première visite au suivi des passages, la même méthode pour chaque lieu.</p></div>
-      <ol class="steps">
-        <li><h3>Visite des lieux</h3><p>Nous venons voir les surfaces, les accès et vos contraintes d'horaires. La visite est gratuite.</p></li>
-        <li><h3>Devis sous 24 heures</h3><p>Un devis détaillé poste par poste, avec les fréquences proposées.</p></li>
-        <li><h3>Cahier des charges</h3><p>Les tâches et leurs fréquences sont écrites. Elles servent de référence à nos agents comme à vous.</p></li>
-        <li><h3>Passages et suivi</h3><p>Les interventions suivent le planning. Vous avez un interlocuteur direct pour tout ajustement.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section" id="zones">
-    <div class="wrap">
-      <div class="section-head"><h2>Lyon et sa métropole, depuis <span style="white-space:nowrap">Tassin-la-Demi-Lune</span></h2><p>Notre équipe intervient dans toute la métropole lyonnaise, à partir de nos locaux de l'Ouest lyonnais.</p></div>
-      <div class="zones">{zones}</div>
-      <p class="zones-note">Votre commune n'est pas dans la liste ? <a href="/contact/">Demandez-nous</a>.</p>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="questions">
-    <div class="wrap faq-layout">
-      <h2>Questions fréquentes</h2>
-      <div class="faq">{faq_html(HOME_FAQ)}</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">{cta_block()}</div>
-  </section>
-</main>'''
+    """Accueil « raclette » : page autonome (generateur/accueil.html), on y injecte le référencement."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "accueil.html"), encoding="utf-8").read()
     ld = [business_ld(), {"@context": "https://schema.org", "@type": "WebSite", "name": "TL Propreté", "url": SITE + "/", "inLanguage": "fr-FR"}]
-    write("/", page("/", "Entreprise de nettoyage à Lyon : copropriétés, bureaux, commerces | TL Propreté",
-                    "TL Propreté, entreprise de propreté à Lyon depuis 2021 : nettoyage de copropriétés, bureaux, commerces et hôtels, fin de chantier, vitrerie. Devis gratuit sous 24 heures.",
-                    body, current="/", ld=ld, body_class="home"))
+    lds = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in ld)
+    title = "Entreprise de nettoyage à Lyon : copropriétés, bureaux, commerces | TL Propreté"
+    desc = "TL Propreté, entreprise de propreté à Lyon depuis 2021 : nettoyage de copropriétés, bureaux, commerces et hôtels, fin de chantier, vitrerie. Devis gratuit sous 24 heures."
+    seo = f'''<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="{SITE}/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="TL Propreté">
+<meta property="og:title" content="{html.escape(title, quote=True)}">
+<meta property="og:description" content="{html.escape(desc, quote=True)}">
+<meta property="og:url" content="{SITE}/">
+<meta property="og:image" content="{SITE}/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{lds}'''
+    assert src.count("<!--HEAD-SEO-->") == 1
+    write("/", src.replace("<!--HEAD-SEO-->", seo))
 
 
 # ------------------------------------------------------------------ pages prestations
