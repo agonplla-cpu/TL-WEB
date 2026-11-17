@@ -5,10 +5,10 @@ header('Content-Type: text/plain; charset=utf-8');
 if (($_GET['k'] ?? '') !== 'tl-libres-1117') { http_response_code(404); exit; }
 $dir = __DIR__ . '/assets/img/photos';
 if (!is_dir($dir)) { mkdir($dir, 0755, true); }
-$list = ['s1-vitres' => 'jr9wXKcwjt0', 's2-hall' => 'fBqLVWZvMR0', 's3-bureaux' => 'qBDUCSJYGIc'];
+$list = ['s1-vitres' => 'photo-1721620958961-cccc239cbb49', 's2-hall' => 'photo-1630703125789-6416b14d1705', 's3-bureaux' => 'photo-1631248988030-141c05a37dd2'];
 $ok = 0;
 foreach ($list as $name => $id) {
-    $ch = curl_init("https://unsplash.com/photos/$id/download?force=true&w=1200");
+    $ch = curl_init("https://images.unsplash.com/$id?w=1000&h=1333&fit=crop&q=82&fm=jpg");
     curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_MAXREDIRS => 5,
         CURLOPT_TIMEOUT => 40, CURLOPT_USERAGENT => 'Mozilla/5.0 (tlproprete.fr)']);
     $bin = curl_exec($ch); $code = curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
