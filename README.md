@@ -1,6 +1,6 @@
 # TL Propreté — site web
 
-Source du site [www.tlproprete.fr](https://www.tlproprete.fr), en ligne depuis le 4 novembre 2026.
+Source du site [www.tlproprete.fr](https://www.tlproprete.fr). Version 2 (novembre 2026) : typographie Archivo, photos à leur taille d'origine, sans intro zoom.
 Site statique (HTML, CSS, JS) généré en Python, plus `devis.php` pour le formulaire de devis.
 
 ## Organisation du dépôt
@@ -9,11 +9,15 @@ Site statique (HTML, CSS, JS) généré en Python, plus `devis.php` pour le form
 |---|---|
 | `site/` | Le site tel qu'il est publié : contenu du dossier `httpdocs` sur Plesk. |
 | `generateur/` | `content.py` (textes, prestations, coordonnées, communes), `build.py` (génère les pages dans `site/`), `render_assets.js` (favicon, icône Apple, image de partage). |
-| `tests/` | Scripts Playwright : captures de l'intro et des pages, test du formulaire, enregistrement vidéo de l'intro. Les captures vont dans `captures/` (non versionné). |
+| `tests/` | Scripts Playwright : captures des pages, test du formulaire. Les captures vont dans `captures/` (non versionné). |
 | `outils/` | Chaîne de traitement des images : agrandissement Real-ESRGAN (`images/upscale.py`), retouche de la photo du hall (`images/retouch_hall.py`), vectorisation du logo (`logo/vectorize.py`). |
 
-Pages publiées : accueil avec l'intro zoom (Lyon → hall d'entrée → logo), 7 pages prestations, contact,
+Pages publiées : accueil, 7 pages prestations, contact,
 mentions légales, confidentialité, `/merci/`, `404.html`, `sitemap.xml`, `robots.txt`.
+
+## Photos
+
+N'utiliser que de vraies photos, à leur taille d'origine (photo prise au téléphone, pas une capture d'écran), sans agrandissement par IA.
 
 ## Modifier le site
 
@@ -39,15 +43,11 @@ lorsque la boîte contact@ est hébergée ailleurs.
 ```
 npm i -D playwright            # une seule fois
 BASE_URL=http://127.0.0.1:8080 node tests/shoot_pages.js desktop /,/contact/
-node tests/shoot_intro.js mobile
 node tests/test_form.js        # envoie une vraie demande : à lancer en local, pas sur le site en ligne
 ```
 
 ## À compléter
 
-- Téléphone : `PHONE` et `PHONE_INTL` dans `content.py` (il s'affiche alors partout).
-- Mentions légales : forme juridique, capital, SIRET, RCS, TVA, directeur de publication, hébergeur
-  (surlignés en jaune dans `/mentions-legales/`).
 - Vérifier la liste des communes (`ZONES`) et le détail des prestations.
 - Droits d'utilisation de la photo de Lyon.
 - Google Search Console : déclarer `https://www.tlproprete.fr/sitemap.xml`.

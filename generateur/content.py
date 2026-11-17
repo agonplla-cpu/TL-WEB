@@ -3,12 +3,23 @@
 
 SITE = "https://www.tlproprete.fr"
 EMAIL = "contact@tlproprete.fr"
-PHONE = ""            # ex. "04 78 00 00 00" : laissé vide tant qu'il n'est pas fourni (rien ne s'affiche)
-PHONE_INTL = ""       # ex. "+33478000000"
+PHONE = "06 05 03 10 96"
+PHONE_INTL = "+33605031096"
 STREET = "19 avenue du Nord"
 POSTCODE = "69160"
 CITY = "Tassin-la-Demi-Lune"
 HOURS = "Du lundi au vendredi, de 8 h à 18 h"
+
+# Mentions légales (registre national des entreprises, novembre 2026)
+LEGAL_NAME = "TL Propreté"
+LEGAL_FORM = "SAS"
+CAPITAL = "1 000 €"
+SIRET = "982 433 294 00013"
+RCS = "RCS Lyon 982 433 294"
+TVA = "FR96982433294"
+PUBLISHER = "Agon Pllana, directeur général"
+HOST = ("SAS PulseHeberg, 9 boulevard de Strasbourg, 83000 Toulon. Téléphone : 04 22 14 13 60. "
+        "RCS Toulon 824 070 619.")
 
 ZONES = [
     ("Lyon", ["Tous les arrondissements, du 1er au 9e"]),

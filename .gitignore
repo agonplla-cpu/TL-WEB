@@ -1,8 +1,8 @@
-__pycache__/
 *.pyc
-node_modules/
-package-lock.json
-captures/
-models/
 *.zip
 .DS_Store
+__pycache__/
+captures/
+models/
+node_modules/
+package-lock.json

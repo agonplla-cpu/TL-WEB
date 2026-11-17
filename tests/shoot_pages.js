@@ -19,15 +19,6 @@ const BASE = process.env.BASE_URL || 'http://127.0.0.1:8080';
     await p.goto(BASE + u, { waitUntil: 'networkidle' });
     await p.waitForTimeout(500);
     const name = (u === '/' ? 'home' : u.replace(/\//g, '_').replace(/^_|_$/g, '')).replace(/[?=]/g, '-');
-    if (u === '/') {
-      // capture page content after the intro
-      const off = await p.evaluate(() => document.getElementById('contenu').getBoundingClientRect().top + scrollY);
-      await p.evaluate((o) => window.scrollTo(0, o), off);
-      await p.waitForTimeout(800);
-      const h = await p.evaluate(() => document.documentElement.scrollHeight);
-      await p.evaluate(() => { document.getElementById('intro').style.display = 'none'; document.body.classList.remove('on-intro'); window.scrollTo(0, 0); });
-      await p.waitForTimeout(300);
-    }
     await p.screenshot({ path: `${OUT}/page-${mode}-${name}.png`, fullPage: true });
     const w = await p.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
     if (w.sw > w.cw + 1) errs.push(u + ' HORIZONTAL OVERFLOW ' + JSON.stringify(w));

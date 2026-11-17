@@ -6,7 +6,8 @@ from content import *
 
 OUT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "site"))
 YEAR = 2026
-VERSION = "20261104"
+VERSION = "20261117"
+LASTMOD = "2026-11-17"
 
 
 # ------------------------------------------------------------------ typographie française
@@ -51,11 +52,11 @@ def header(current):
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="TL Propreté, accueil">
-      <span class="brand-mono" style="-webkit-mask-image:url(/assets/img/tl-monogram.svg);mask-image:url(/assets/img/tl-monogram.svg)"></span>
-      <span class="brand-sep" aria-hidden="true"></span>
-      <span class="brand-word" style="-webkit-mask-image:url(/assets/img/tl-wordmark.svg);mask-image:url(/assets/img/tl-wordmark.svg)"></span>
+      <img class="brand-mono" src="/assets/img/tl-monogram.svg" alt="" width="33" height="40">
+      <img class="brand-word" src="/assets/img/tl-wordmark.svg" alt="" width="111" height="16">
     </a>
     <nav class="main-nav" aria-label="Navigation principale"><ul>{links}</ul></nav>
+    <a class="header-tel" href="tel:{PHONE_INTL}">{PHONE}</a>
     <a class="btn header-cta" href="/contact/">Demander un devis</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile"><span class="menu-toggle-bars" aria-hidden="true"></span><span class="menu-toggle-label">Menu</span></button>
   </div>
@@ -65,7 +66,7 @@ def header(current):
     <ul class="mm-main"><li><a href="/">Accueil</a></li><li><a href="/#prestations">Prestations</a></li><li><a href="/#zones">Zones d'intervention</a></li><li><a href="/contact/">Contact</a></li></ul>
   </nav>
   <ul class="mm-sub">{svc}</ul>
-  <a class="btn" href="/contact/">Demander un devis</a>
+  <div class="btn-row"><a class="btn btn-light" href="/contact/">Demander un devis</a><a class="btn btn-ghost-light" href="tel:{PHONE_INTL}">{PHONE}</a></div>
 </div>'''
 
 
@@ -147,12 +148,11 @@ def page(path, title, desc, body, *, current=None, ld=None, body_class="", noind
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#070C2B">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 {preload}<link rel="stylesheet" href="/assets/css/site.css?v={VERSION}">
 {lds}
 </head>
@@ -183,9 +183,9 @@ def faq_html(items):
 def cta_block(title="Parlons de votre immeuble",
               text="Décrivez le lieu et la fréquence souhaitée : nous revenons vers vous sous 24 heures pour fixer une visite.",
               href="/contact/"):
-    return f'''<div class="inlay cta-inlay">
+    return f'''<div class="cta-band">
   <div><h2>{title}</h2><p>{text}</p></div>
-  <div><div class="btn-row"><a class="btn" href="{href}">Demander un devis</a></div><a class="cta-mail" href="mailto:{EMAIL}">ou écrire à {EMAIL}</a></div>
+  <div class="cta-actions"><a class="btn btn-light" href="{href}">Demander un devis</a><p>ou appelez le <a href="tel:{PHONE_INTL}">{PHONE}</a><br>ou écrivez à <a href="mailto:{EMAIL}">{EMAIL}</a></p></div>
 </div>'''
 
 
@@ -206,33 +206,25 @@ def home():
         body_rows += f'<tr><th scope="row">{task}</th>{cells}</tr>'
     zones = "".join(f'<div><h3>{g}</h3><ul>{"".join(f"<li>{c}</li>" for c in cs)}</ul></div>' for g, cs in ZONES)
 
-    intro = '''<section class="intro" id="intro" data-assets="/assets/img/" aria-label="Introduction">
-  <div class="intro-stage">
-    <div class="intro-poster" aria-hidden="true"></div>
-    <canvas class="intro-canvas" aria-hidden="true"></canvas>
-    <div class="intro-shade" aria-hidden="true"></div>
-    <div class="intro-layer intro-open is-on" data-show="open">
-      <div class="wrap">
-        <p class="intro-kicker">Entreprise de propreté à Lyon depuis 2021</p>
-        <h1>L'exigence du propre, jusque dans les détails.</h1>
-        <p class="intro-hint">Faites défiler pour entrer</p>
+    body = f'''<main id="contenu">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1>Nettoyage de copropriétés, bureaux et commerces à Lyon</h1>
+        <p class="lead">Depuis 2021, TL Propreté entretient les parties communes, les locaux professionnels et les commerces de la métropole lyonnaise, avec un cahier des charges écrit pour chaque lieu.</p>
+        <div class="btn-row"><a class="btn" href="/contact/">Demander un devis</a><a class="btn btn-ghost" href="tel:{PHONE_INTL}">{PHONE}</a></div>
+        <ul class="hero-facts">
+          <li>Visite des lieux gratuite</li>
+          <li>Devis détaillé sous 24 heures</li>
+          <li>Passages contrôlés par QR code</li>
+        </ul>
       </div>
+      <figure class="hero-photo">
+        <picture><source srcset="/assets/img/lyon-800.webp 800w, /assets/img/lyon-1280.webp 1280w" sizes="(max-width: 980px) 92vw, 600px" type="image/webp"><img src="/assets/img/lyon-1280.jpg" width="1280" height="853" alt="Lyon de nuit, avec les tours du quartier de la Part-Dieu" fetchpriority="high"></picture>
+      </figure>
     </div>
-    <p class="intro-layer intro-caption" data-show="city" aria-hidden="true">Lyon. Ses copropriétés, ses bureaux, ses commerces.</p>
-    <p class="intro-layer intro-caption" data-show="door" aria-hidden="true">Derrière chaque porte, un hall qui doit être impeccable.</p>
-    <p class="intro-layer intro-caption" data-show="detail" aria-hidden="true">Nous regardons là où personne ne regarde.</p>
-    <div class="intro-layer intro-end" data-show="end" inert>
-      <p class="intro-end-title">Regardez de plus près.</p>
-      <p>Nettoyage de copropriétés, de bureaux, de commerces et d'hôtels à Lyon et dans la métropole.</p>
-      <div class="btn-row"><a class="btn" href="/contact/">Demander un devis</a><a class="btn btn-ghost" href="#prestations">Voir les prestations</a></div>
-    </div>
-    <a class="intro-skip" href="#contenu">Passer l'introduction</a>
-    <div class="intro-progress" aria-hidden="true"><span></span></div>
-  </div>
-</section>'''
+  </section>
 
-    body = f'''{intro}
-<main id="contenu">
   <section class="section" id="prestations">
     <div class="wrap">
       <div class="section-head"><h2>Ce que nous entretenons</h2><p>Des parties communes d'une résidence aux vitrines d'une boutique, chaque prestation part d'une visite et d'un cahier des charges écrit.</p></div>
@@ -240,7 +232,7 @@ def home():
     </div>
   </section>
 
-  <section class="section" id="coproprietes">
+  <section class="section section-alt" id="coproprietes">
     <div class="wrap copro">
       <div class="copro-text">
         <h2>Pour les copropriétés, un planning écrit et tenu</h2>
@@ -291,14 +283,7 @@ def home():
     </div>
   </section>
 
-  <section class="section manifesto on-dark">
-    <div class="wrap">
-      <blockquote><p>Un lieu propre n'est pas un détail. C'est le premier signal que vous envoyez à vos clients, à vos équipes, à vos visiteurs.</p></blockquote>
-      <p class="sig">TL Propreté, depuis 2021</p>
-    </div>
-  </section>
-
-  <section class="section" id="questions">
+  <section class="section section-alt" id="questions">
     <div class="wrap faq-layout">
       <h2>Questions fréquentes</h2>
       <div class="faq">{faq_html(HOME_FAQ)}</div>
@@ -308,13 +293,11 @@ def home():
   <section class="section">
     <div class="wrap">{cta_block()}</div>
   </section>
-</main>
-<script src="/assets/js/intro.js?v={VERSION}" defer></script>'''
+</main>'''
     ld = [business_ld(), {"@context": "https://schema.org", "@type": "WebSite", "name": "TL Propreté", "url": SITE + "/", "inLanguage": "fr-FR"}]
     write("/", page("/", "Entreprise de nettoyage à Lyon : copropriétés, bureaux, commerces | TL Propreté",
                     "TL Propreté, entreprise de propreté à Lyon depuis 2021 : nettoyage de copropriétés, bureaux, commerces et hôtels, fin de chantier, vitrerie. Devis gratuit sous 24 heures.",
-                    body, current="/", ld=ld, body_class="home on-intro",
-                    preload='<link rel="preload" href="/assets/img/lyon-1280.jpg" as="image">\n'))
+                    body, current="/", ld=ld, body_class="home"))
 
 
 # ------------------------------------------------------------------ pages prestations
@@ -326,7 +309,7 @@ def service(s):
         sections += f'<h2>{h}</h2>' + "".join(f"<p>{p}</p>" for p in ps)
     fig = ''
     if s.get("image"):
-        fig = '''<figure class="figure-hall"><picture><source srcset="/assets/img/hall-800.webp 800w, /assets/img/hall-1596.webp 1596w" sizes="(max-width: 980px) 90vw, 420px" type="image/webp"><img src="/assets/img/hall-800.jpg" width="800" height="1004" alt="Hall d'entrée de résidence : lambris en chêne, boîtes aux lettres, sol en marbre blanc bordé de marbre noir" loading="eager"></picture><figcaption>Hall d'une résidence entretenue par TL Propreté.</figcaption></figure>'''
+        fig = '''<figure class="figure-hall"><picture><source srcset="/assets/img/hall-400.webp" type="image/webp"><img src="/assets/img/hall-400.jpg" width="399" height="501" alt="Hall d'entrée de résidence : lambris en chêne, boîtes aux lettres, sol en marbre blanc bordé de marbre noir" loading="eager"></picture><figcaption>Hall d'une résidence entretenue par TL Propreté.</figcaption></figure>'''
     others = [o for o in SERVICES if o["slug"] != s["slug"]]
     rel = "".join(f'<li><a href="/{o["slug"]}/">{o["name"]}</a></li>' for o in others)
     body = f'''<main id="contenu">
@@ -443,17 +426,15 @@ def simple(path, title, h1, text, links, noindex=True):
 
 
 def legal():
-    T = lambda s: f'<span class="todo">[À compléter : {s}]</span>'
-    ph = PHONE if PHONE else T("téléphone")
     ml = f'''<main id="contenu">
   <section class="page-hero"><div class="wrap"><h1>Mentions légales</h1></div></section>
   <section class="section"><div class="wrap legal">
     <h2>Éditeur du site</h2>
-    <p>TL Propreté, {T("forme juridique")} au capital de {T("capital")} euros.<br>Siège social : {STREET}, {POSTCODE} {CITY}.<br>SIRET : {T("numéro SIRET")}. RCS : {T("ville et numéro RCS")}.<br>TVA intracommunautaire : {T("numéro de TVA")}.<br>E-mail : <a href="mailto:{EMAIL}">{EMAIL}</a>. Téléphone : {ph}.</p>
+    <p>{LEGAL_NAME}, {LEGAL_FORM} au capital de {CAPITAL}.<br>Siège social : {STREET}, {POSTCODE} {CITY}.<br>SIRET : {SIRET}. {RCS}.<br>TVA intracommunautaire : {TVA}.<br>E-mail : <a href="mailto:{EMAIL}">{EMAIL}</a>. Téléphone : <a href="tel:{PHONE_INTL}">{PHONE}</a>.</p>
     <h2>Directeur de la publication</h2>
-    <p>{T("nom et fonction du dirigeant")}</p>
+    <p>{PUBLISHER}.</p>
     <h2>Hébergement</h2>
-    <p>{T("nom, adresse et téléphone de l'hébergeur du site")}</p>
+    <p>{HOST}</p>
     <h2>Propriété intellectuelle</h2>
     <p>Les textes, le logo, les photographies et la présentation de ce site sont la propriété de TL Propreté ou sont utilisés avec l'accord de leurs auteurs. Toute reproduction sans autorisation écrite est interdite.</p>
     <h2>Données personnelles et cookies</h2>
@@ -502,7 +483,7 @@ def build():
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for u in urls:
         pr = "1.0" if u == "/" else ("0.8" if "lyon" in u else ("0.6" if u == "/contact/" else "0.2"))
-        sm += f"  <url><loc>{SITE}{u}</loc><lastmod>2026-11-04</lastmod><priority>{pr}</priority></url>\n"
+        sm += f"  <url><loc>{SITE}{u}</loc><lastmod>{LASTMOD}</lastmod><priority>{pr}</priority></url>\n"
     sm += "</urlset>\n"
     open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
     open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /merci/\n\nSitemap: {SITE}/sitemap.xml\n")
